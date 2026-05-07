@@ -1,6 +1,10 @@
-const baseURL =
-  "https://delphos.deinsa.com:8080/Delphos_N/wsdelphos/wsdelphos.asmx";
-// "https://delphos.deinsa.com:82/Delphos_Alajuela/wsdelphos/wsdelphos.asmx";
+import pkg from '@next/env';
+const { loadEnvConfig } = pkg;
+
+const baseURL = process.env.API_BASE_URL;
+
+
+
 
 // Mapa de rutas para evitar repetir lógica
 const apiRoutes = {

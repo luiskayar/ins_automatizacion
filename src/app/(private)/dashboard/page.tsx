@@ -137,6 +137,10 @@ export default function DashboardPage() {
       alert("No hay Código N8N asociado al usuario");
       return;
     }
+
+    // Al hacer clic en Enviar, ocultar la vista previa
+    resetPreview();
+
     const fd = new FormData();
     // Enviar el archivo bajo la clave "data" (como Postman) y pasar n8nCode al backend
     fd.set("data", file);
@@ -146,10 +150,10 @@ export default function DashboardPage() {
       const res = await fetch("/api/upload", { method: "POST", body: fd });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data?.ok) {
-        alert(data?.error || "Error enviando al webhook");
+        alert(data?.error || "Error al enviar la información. Por favor, notificar a soporte.");
         return;
       }
-      alert("Archivo enviado a n8n correctamente");
+      alert("Archivo enviado con éxito. La información fue procesada correctamente.");
       form.reset();
       setSelectedName(null);
     } catch {
