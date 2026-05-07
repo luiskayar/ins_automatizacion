@@ -9,7 +9,8 @@ const baseURL = process.env.API_BASE_URL;
 // Mapa de rutas para evitar repetir lógica
 const apiRoutes = {
   login: "/LoginApp",
-  tokenSistema: "/ObtenerAutoTK"
+  tokenSistema: "/ObtenerAutoTK",
+  parametros: "/Obtiene_ParametrosGenerales_App"
 };
 
 // Generar las reescrituras dinámicamente
