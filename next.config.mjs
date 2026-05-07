@@ -1,7 +1,16 @@
-import pkg from '@next/env';
-const { loadEnvConfig } = pkg;
+import fs from 'fs';
+import path from 'path';
 
-const baseURL = process.env.API_BASE_URL;
+let baseURL = process.env.API_BASE_URL;
+
+try {
+  const configPath = path.join(process.cwd(), 'public', 'config.js');
+  const content = fs.readFileSync(configPath, 'utf-8');
+  const match = content.match(/API_BASE_URL:\s*["']([^"']+)["']/);
+  if (match) baseURL = match[1];
+} catch {
+  // sin config.js, usa process.env.API_BASE_URL
+}
 
 
 
@@ -31,6 +40,14 @@ const nextConfig = {
       ],
     },
     outputFileTracingExcludes: {},
+  },
+  async headers() {
+    return [
+      {
+        source: '/config.js',
+        headers: [{ key: 'Cache-Control', value: 'no-store' }],
+      },
+    ];
   },
   async rewrites() {
     return generateRewrites();
